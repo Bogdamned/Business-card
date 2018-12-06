@@ -1,10 +1,15 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+	mgo "gopkg.in/mgo.v2"
+)
 
 type (
 	obj map[string]interface{}
-	C   struct {
+	A   struct {
 		ID       uint64 `form:"id"  json:"id"  bson:"_id"`
 		Root     bool   `form:"-"  json:"root"  bson:"root"`
 		Name     string `form:"name" json:"name" bson:"name" binding:"required,min=3"`
@@ -14,13 +19,14 @@ type (
 		Updated  uint   `form:"-" json:"-" bson:"updated"`
 		Deleted  bool   `form:"-" json:"-" bson:"deleted"`
 	}
+
+	Application struct {
+		collection *mgo.Collection
+	}
 )
 
 func Page(c *gin.Context) {
-	c.HTML(200, "admins.html", gin.H{
-		"title":     "Администраторы",
-		"panelPath": "panelPath",
-		//"admin":     c.MustGet("user").(A),
-		"active": obj{"admins": true},
+	c.HTML(http.StatusOK, "card.html", gin.H{
+		"title": "Сервис ремонта бытовой техники",
 	})
 }
