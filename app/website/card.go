@@ -28,5 +28,6 @@ type (
 func Page(c *gin.Context) {
 	c.HTML(http.StatusOK, "card.html", gin.H{
 		"title": "Сервис ремонта бытовой техники",
+		"style": "style.css",
 	})
 }
